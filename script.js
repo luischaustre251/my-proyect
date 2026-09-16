@@ -336,5 +336,9 @@ document.addEventListener('DOMContentLoaded', () => {
             buscarInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 500);
     }
+<<<<<<< HEAD
 });
 
+=======
+});
+>>>>>>> 3ccfd4df0bbc448b97b0cb2e5313d3ef2d4367be
