@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Repuestos | Casique C.A. - Mayor de Repuestos</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <!-- Header Corporativo -->
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Logo de la empresa Casique C.A.">
+            </a>
+        </div>
+
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="index.html#inicio">Inicio</a></li>
+                <li><a href="index.html#categorias">Categorías</a></li>
+                <li><a href="catalogo.html" class="highlight-link">Catálogo</a></li>
+                <li><a href="index.html#sobre-nosotros">Sobre Nosotros</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-tools">
+            <button class="buscar" id="header-search-btn">Buscar</button>
+            <a href="index.html#despacho">Ubícanos</a>
+            <a href="index.html#sobre-nosotros">Sobre Nosotros</a>
+        </div>
+
+        <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <main>
+        <!-- Sección de Filtros y Búsqueda -->
+        <section id="productos" class="seccion-catalogo" style="padding-top: 50px;">
+            <h2 style="margin-bottom: 10px; font-weight: 700; text-align: center; font-size: 2rem;">Buscador Interactivo
+            </h2>
+            <p style="text-align: center; color: #666; margin-bottom: 40px;">Consulta la disponibilidad y
+                especificaciones técnicas de nuestro inventario mayorista.</p>
+
+            <div class="catalogo-controles">
+                <div class="buscador-caja">
+                    <input type="text" id="buscar-producto"
+                        placeholder="Buscar por código, nombre o compatibilidad (ej: Chevrolet, corsa, yokes)...">
+                    <button class="btn-clear-search" id="btn-clear-search"
+                        aria-label="Limpiar búsqueda">&times;</button>
+                </div>
+                <div class="filtros-categorias" id="filtros-categorias">
+                    <button class="filtro-btn activo" data-categoria="todos">Todos</button>
+                    <button class="filtro-btn" data-categoria="transmision">Transmisión</button>
+                    <button class="filtro-btn" data-categoria="suspension">Suspensión</button>
+                    <button class="filtro-btn" data-categoria="motor">Motor</button>
+                    <button class="filtro-btn" data-categoria="rodamientos">Rodamientos</button>
+                    <button class="filtro-btn" data-categoria="bombas">Bombas</button>
+                </div>
+            </div>
+
+            <div class="grid-productos" id="productos-container">
+                <!-- Se cargará dinámicamente con JS -->
+            </div>
+
+            <div id="no-results" class="no-results hidden">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+                <p>No se encontraron repuestos que coincidan con tu búsqueda.</p>
+                <button class="btn" id="btn-reset-filters">Ver todos los productos</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal de Detalles del Producto -->
+    <div id="producto-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal-btn" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-body">
+                <div class="modal-img-container">
+                    <img id="modal-producto-img" src="" alt="Imagen de repuesto">
+                </div>
+                <div class="modal-info">
+                    <span id="modal-producto-categoria" class="tag-categoria">Categoría</span>
+                    <h3 id="modal-producto-titulo">Nombre del Repuesto</h3>
+                    <p class="codigo-producto">Código: <span id="modal-producto-codigo">N/A</span></p>
+                    <div class="detalles-compatibilidad">
+                        <h4>Compatibilidad y Descripción:</h4>
+                        <p id="modal-producto-descripcion">Detalles técnicos del repuesto...</p>
+                    </div>
+                    <div class="modal-actions">
+                        <a href="#" id="modal-btn-cotizar" target="_blank" class="btn btn-whatsapp"
+                            style="text-decoration: none;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
+                                style="margin-right: 8px; vertical-align: middle;">
+                                <path
+                                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.97C16.579 2.028 14.103 1 11.488 1 6.048 1 1.622 5.37 1.618 10.8c-.001 1.702.455 3.361 1.32 4.8l-.996 3.636 3.725-.976zm11.458-7.712c-.302-.15-1.788-.882-2.064-.983-.277-.1-.478-.15-.679.15-.202.302-.782.983-.96 1.185-.177.201-.355.225-.657.075-.302-.15-1.274-.469-2.427-1.496-.897-.8-1.502-1.788-1.678-2.088-.178-.3-.02-.461.13-.611.135-.135.302-.35.454-.525.151-.175.202-.3.302-.5.101-.2.05-.376-.025-.526-.075-.15-.679-1.636-.93-2.247-.244-.587-.49-.508-.679-.518-.175-.008-.376-.01-.578-.01-.201 0-.527.075-.803.376-.277.301-1.056 1.028-1.056 2.508 0 1.48 1.081 2.91 1.232 3.111.15.201 2.128 3.249 5.156 4.554.72.31 1.28.496 1.718.636.723.23 1.381.198 1.902.12.58-.087 1.788-.731 2.039-1.437.252-.705.252-1.309.176-1.437-.075-.128-.277-.203-.579-.353z" />
+                            </svg>
+                            Solicitar por WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de Página Institucional -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col footer-about">
+                <img src="images/logo.png" alt="Casique C.A. Logo" class="footer-logo">
+                <p>Distribución al por mayor de repuestos automotrices a nivel nacional. Especialistas en suspensión y
+                    transmisión.</p>
+                <div class="footer-rif">RIF: J-31714927-0</div>
+            </div>
+
+            <div class="footer-col footer-links">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html#inicio">Inicio</a></li>
+                    <li><a href="index.html#categorias">Categorías</a></li>
+                    <li><a href="catalogo.html">Catálogo de Repuestos</a></li>
+                    <li><a href="index.html#sobre-nosotros">Sobre Nosotros</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-contact">
+                <h3>Contacto e Información</h3>
+                <p><strong>Dirección:</strong> Vereda 3 # 3-50 Barrio Sucre parte alta, San Cristóbal, Estado Táchira,
+                    Venezuela.</p>
+                <p><strong>Teléfono:</strong> <a href="tel:+582763550137">0276 - 3550137</a></p>
+                <p><strong>Horarios:</strong> Lunes a Viernes de 8:00 AM - 5:00 PM</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Casique C.A. Todos los derechos reservados. Desarrollado como Proyecto Socio Tecnológico -
+                UPTAIET (PNF en Informática).</p>
+        </div>
+    </footer>
+
+    <script src="datos.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
