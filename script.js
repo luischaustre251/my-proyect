@@ -6,7 +6,7 @@ let activeCategory = 'todos';
 let searchQuery = '';
 
 
-// 2 SLIDER
+// 2 SLIDER (BANNER PRINCIPAL)
 
 const slides = document.querySelectorAll('.slide');
 const sliderTitle = document.getElementById('slider-title');
@@ -60,9 +60,9 @@ function resetTimer() {
     slideInterval = setInterval(() => showSlide(currentSlide + 1), 6000);
 }
 
-
-// 3.CATÁLOGO
-
+// ============================================================
+// 3. ELEMENTOS DEL CATÁLOGO
+// ============================================================
 const productosContainer = document.getElementById('productos-container');
 const buscarInput = document.getElementById('buscar-producto');
 const btnClearSearch = document.getElementById('btn-clear-search');
@@ -71,9 +71,9 @@ const categoryItems = document.querySelectorAll('.categoria-item');
 const noResults = document.getElementById('no-results');
 const btnResetFilters = document.getElementById('btn-reset-filters');
 
-
-// 4. RENDERIZADO
-
+// ============================================================
+// 4. FUNCIÓN DE RENDERIZADO (con búsqueda robusta)
+// ============================================================
 function renderProductos() {
     if (!productosContainer) return;
 
@@ -82,6 +82,8 @@ function renderProductos() {
     setTimeout(() => {
         productosContainer.innerHTML = '';
 
+        // Normalizador: convierte todo a minúsculas y elimina acentos
+        // Así "piñon" y "piñón" y "PINON" se tratan igual
         const normalizar = (texto) => {
             if (texto === null || texto === undefined) return '';
             return String(texto)
@@ -95,7 +97,7 @@ function renderProductos() {
 
         const searchLower = normalizar(searchQuery);
 
-        // Filtrar
+        // Filtramos
         const filtered = productos.filter(prod => {
             const matchesCategory = activeCategory === 'todos' || prod.categoria === activeCategory;
 
@@ -110,7 +112,7 @@ function renderProductos() {
             return matchesCategory && matchesSearch;
         });
 
-        // "no resultados"
+        // Mostrar / ocultar mensaje de "no resultados"
         if (filtered.length === 0) {
             noResults.classList.remove('hidden');
             productosContainer.style.display = 'none';
@@ -153,9 +155,9 @@ function renderProductos() {
     }, 200);
 }
 
-
-// 5. CATEGORÍAs
-
+// ============================================================
+// 5. FILTROS POR CATEGORÍA
+// ============================================================
 filtroBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         filtroBtns.forEach(b => b.classList.remove('activo'));
@@ -187,9 +189,9 @@ categoryItems.forEach(item => {
     });
 });
 
-
-// 6. BUSCADOR
-
+// ============================================================
+// 6. BUSCADOR EN TIEMPO REAL
+// ============================================================
 if (buscarInput) {
     buscarInput.addEventListener('input', (e) => {
         searchQuery = e.target.value;
@@ -241,9 +243,9 @@ if (headerSearchBtn) {
     });
 }
 
-
-// 7. WHATSAPP
-
+// ============================================================
+// 7. MODAL DE DETALLE Y WHATSAPP
+// ============================================================
 const modal = document.getElementById('producto-modal');
 const modalImg = document.getElementById('modal-producto-img');
 const modalCategoria = document.getElementById('modal-producto-categoria');
@@ -303,9 +305,11 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal && modal.classList.contains('active')) closeModal();
 });
 
-// 8. INICIALIZACIÓN
-
+// ============================================================
+// 8. INICIALIZACIÓN (sin fetch, todo local)
+// ============================================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Cargamos los productos desde datos.js (variable global ITEMS_DATA)
     if (typeof ITEMS_DATA === 'undefined') {
         console.error('❌ ERROR: No se encontró ITEMS_DATA. ¿Cargaste datos.js ANTES de script.js?');
         return;
@@ -314,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
     productos = ITEMS_DATA;
     console.log('✅ Productos cargados:', productos.length);
 
+    // Leer parámetros de la URL (categoría, focus search)
     const params = new URLSearchParams(window.location.search);
     const catParam = params.get('categoria');
     const hashParam = window.location.hash ? window.location.hash.substring(1) : null;
@@ -328,17 +333,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Primer render
     renderProductos();
 
+    // Focus en el buscador si viene por parámetro
     if (params.get('focusSearch') === 'true' && buscarInput) {
         setTimeout(() => {
             buscarInput.focus();
             buscarInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }, 500);
     }
-<<<<<<< HEAD
 });
-
-=======
-});
->>>>>>> 3ccfd4df0bbc448b97b0cb2e5313d3ef2d4367be
