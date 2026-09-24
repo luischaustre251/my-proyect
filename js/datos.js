@@ -1,4 +1,8 @@
-const ITEMS_DATA = [
+// ============================================================
+// datos.js — Base de datos de productos
+// ============================================================
+
+export const ITEMS_DATA = [
     {
         id: 1,
         codigo: "Y-1025",

@@ -1,0 +1,205 @@
+/* =============================================
+   RESPONSIVE — Media queries globales
+   ============================================= */
+
+/* --- TABLET Y MÓVIL (≤992px) --- */
+@media (max-width: 992px) {
+    header {
+        padding: 0 6%;
+    }
+
+    nav {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: calc(100vh - 80px);
+        background-color: var(--dark);
+        transition: var(--transition);
+        z-index: 999;
+        box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+        overflow-y: auto;
+    }
+
+    nav.active {
+        left: 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 40px 30px;
+        gap: 25px;
+    }
+
+    nav ul li a {
+        font-size: 1.15rem;
+        display: block;
+        padding: 5px 0;
+        border-bottom: 1px solid #2a2a2a;
+    }
+
+    .header-tools {
+        display: none; /* Se oculta o integra */
+    }
+
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 28px;
+        height: 20px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .hamburger span {
+        width: 100%;
+        height: 3px;
+        background-color: var(--white);
+        border-radius: 2px;
+        transition: var(--transition);
+    }
+
+    /* Animación de la hamburguesa */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .banner-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .banner-content p:nth-child(3) {
+        font-size: 1.05rem;
+    }
+
+    /* About page */
+    .quienes-somos-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .quienes-somos-image {
+        max-width: 600px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .mision-vision-row,
+    .mision-vision-row.reverse {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .mision-vision-row.reverse .mision-vision-content {
+        grid-column: 1;
+    }
+
+    .mision-vision-row.reverse .mision-vision-image {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .mision-vision-image {
+        max-width: 550px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .about-hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* --- VISOR DE CATÁLOGO MÓVIL (≤768px) --- */
+@media (max-width: 768px) {
+    .catalogo-viewer-container {
+        grid-template-columns: 1fr;
+    }
+
+    .viewer-sidebar {
+        position: absolute;
+        left: -100%;
+        top: 0;
+        width: 260px;
+        height: 100%;
+        box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+    }
+
+    .viewer-sidebar.active {
+        left: 0;
+    }
+
+    .btn-toggle-sidebar {
+        display: flex;
+    }
+
+    .viewer-toolbar {
+        padding: 10px;
+    }
+
+    .toolbar-group {
+        gap: 5px;
+    }
+
+    .toolbar-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 0.95rem;
+    }
+
+    .toolbar-btn.btn-text {
+        padding: 0 10px;
+        font-size: 0.75rem;
+    }
+}
+
+/* --- MÓVIL PEQUEÑO (≤576px) --- */
+@media (max-width: 576px) {
+    .about-hero {
+        padding: 80px 4% 60px;
+    }
+
+    .about-hero h1 {
+        font-size: 2rem;
+    }
+
+    .about-hero p {
+        font-size: 1rem;
+    }
+
+    .quienes-somos-content h2,
+    .mision-vision-content h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* --- MÓVIL MUY PEQUEÑO (≤480px) --- */
+@media (max-width: 480px) {
+    .banner-content h1 {
+        font-size: 2rem;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .modal-img-container {
+        height: 180px;
+    }
+
+    .modal-info h3 {
+        font-size: 1.2rem;
+    }
+}

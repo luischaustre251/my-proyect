@@ -1,0 +1,168 @@
+/* =============================================
+   MODAL — Modal de detalle de producto
+   ============================================= */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: var(--white);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 750px;
+    padding: 35px;
+    position: relative;
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    transition: var(--transition);
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: var(--primary);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+@media (min-width: 650px) {
+    .modal-body {
+        flex-direction: row;
+    }
+}
+
+.modal-img-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 20px;
+    border: 1px solid var(--light-gray);
+    height: 250px;
+}
+
+.modal-img-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.modal-info {
+    flex: 1.3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tag-categoria {
+    align-self: flex-start;
+    background-color: #ffebee;
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.modal-info h3 {
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin-bottom: 10px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.codigo-producto {
+    font-size: 0.95rem;
+    color: var(--gray-text);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.codigo-producto span {
+    color: var(--dark);
+    font-weight: 700;
+}
+
+.detalles-compatibilidad {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid var(--primary);
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.detalles-compatibilidad h4 {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: var(--dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detalles-compatibilidad p {
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+.btn-whatsapp {
+    background-color: #25D366 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+    transition: var(--transition);
+}
+
+.btn-whatsapp:hover {
+    background-color: #128C7E !important;
+}

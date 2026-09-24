@@ -1,0 +1,53 @@
+/* =============================================
+   NOSOTROS — Sección "Sobre Nosotros" en index
+   ============================================= */
+
+#sobre-nosotros {
+    background-color: var(--dark);
+    color: #fff;
+}
+
+.grid-nosotros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    text-align: center;
+}
+
+.nosotros-item .icono {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255,255,255,0.05);
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: var(--transition);
+}
+
+.nosotros-item:hover .icono {
+    background-color: var(--primary);
+    color: var(--white);
+    transform: scale(1.05);
+}
+
+.nosotros-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.nosotros-item p {
+    color: #aaa;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    min-height: 40px;
+}
+
+.nosotros-item .btn {
+    padding: 8px 20px;
+    font-size: 0.85rem;
+}

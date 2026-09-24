@@ -1,0 +1,250 @@
+/* =============================================
+   VIEWER — Visor de catálogo (catalogo.html)
+   ============================================= */
+
+.catalogo-viewer-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    height: calc(100vh - 80px);
+    background-color: #eef2f5;
+    overflow: hidden;
+}
+
+/* Barra Lateral del Visor */
+.viewer-sidebar {
+    background-color: var(--white);
+    border-right: 1px solid var(--light-gray);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    z-index: 10;
+    transition: var(--transition);
+}
+
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--light-gray);
+    background-color: #fcfcfc;
+}
+
+.sidebar-header h3 {
+    font-size: 1.05rem;
+    color: var(--dark);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.sidebar-header p {
+    font-size: 0.8rem;
+    color: var(--gray-text);
+}
+
+.thumbnails-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.thumbnail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    transition: var(--transition);
+}
+
+.thumbnail-item:hover {
+    border-color: #ccc;
+    background-color: #f0f0f0;
+}
+
+.thumbnail-item.active {
+    border-color: var(--primary);
+    background-color: #ffebee;
+}
+
+.thumbnail-item img {
+    width: 100%;
+    max-width: 130px;
+    height: auto;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    background-color: #fff;
+}
+
+.thumbnail-item span {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--gray-text);
+}
+
+.thumbnail-item.active span {
+    color: var(--primary);
+}
+
+/* Área de Lectura del Visor */
+.viewer-main-area {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Barra de herramientas */
+.viewer-toolbar {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--light-gray);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    z-index: 5;
+}
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toolbar-btn {
+    background-color: #f4f6f9;
+    border: 1px solid var(--light-gray);
+    color: var(--dark);
+    width: 38px;
+    height: 38px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    font-weight: bold;
+    border: none;
+}
+
+.toolbar-btn:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.toolbar-btn.btn-text {
+    width: auto;
+    padding: 0 15px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.toolbar-btn.btn-whatsapp-floating {
+    background-color: #25D366;
+    color: var(--white);
+}
+
+.toolbar-btn.btn-whatsapp-floating:hover {
+    background-color: #128C7E;
+}
+
+.page-indicator {
+    font-size: 0.9rem;
+    color: var(--dark);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.page-indicator input {
+    width: 45px;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.page-indicator input:focus {
+    border-color: var(--primary);
+}
+
+.zoom-indicator {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gray-text);
+    min-width: 55px;
+    text-align: center;
+}
+
+/* Viewport de visualización de imagen */
+.viewer-viewport {
+    flex-grow: 1;
+    overflow: auto;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    cursor: grab;
+    scroll-behavior: smooth;
+}
+
+.viewer-viewport:active {
+    cursor: grabbing;
+}
+
+.document-wrapper {
+    background-color: var(--white);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.2, 1);
+    transform-origin: top center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+}
+
+.document-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Botón hamburguesa exclusivo para el sidebar del visor */
+.btn-toggle-sidebar {
+    display: none;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.btn-toggle-sidebar:hover {
+    background-color: var(--primary);
+}

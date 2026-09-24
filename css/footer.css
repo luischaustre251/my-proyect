@@ -1,0 +1,103 @@
+/* =============================================
+   FOOTER — Pie de página institucional
+   ============================================= */
+
+footer {
+    background-color: var(--dark);
+    color: #fff;
+    padding: 60px 4% 20px;
+    border-top: 5px solid var(--primary);
+    margin-top: 60px;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+}
+
+.footer-col h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+
+.footer-col h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2.5px;
+    background-color: var(--primary);
+}
+
+.footer-logo {
+    height: 50px;
+    margin-bottom: 15px;
+    object-fit: contain;
+    display: block;
+}
+
+.footer-about p {
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.6;
+}
+
+.footer-rif {
+    display: inline-block;
+    background-color: #2a2a2a;
+    color: #ccc;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.footer-links ul li {
+    margin-bottom: 12px;
+}
+
+.footer-links ul li a {
+    color: #aaa;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.footer-links ul li a:hover {
+    color: var(--primary);
+    padding-left: 6px;
+}
+
+.footer-contact p {
+    color: #aaa;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+.footer-contact p strong {
+    color: #fff;
+}
+
+.footer-contact a {
+    color: #fff;
+    transition: var(--transition);
+}
+
+.footer-contact a:hover {
+    color: var(--primary);
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #2d2d2d;
+    padding-top: 20px;
+    font-size: 0.85rem;
+    color: #777;
+}
