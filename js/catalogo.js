@@ -19,7 +19,7 @@ let activeCategory = 'todos';
 let searchQuery = '';
 
 // Elementos del DOM
-let productosContainer, buscarInput, btnClearSearch, filtroBtns, noResults, btnResetFilters;
+let productosContainer, buscarInput, btnClearSearch, filtroBtns, noResults, btnResetFilters, contadorEl;
 
 /**
  * Normalizador: convierte a minúsculas y elimina acentos.
@@ -37,7 +37,7 @@ function normalizar(texto) {
 }
 
 /**
- * Renderiza las cards de productos filtrados.
+ * Renderiza la lista de productos filtrados.
  */
 function renderProductos() {
     if (!productosContainer) return;
@@ -64,35 +64,87 @@ function renderProductos() {
             return matchesCategory && matchesSearch;
         });
 
+        // Actualizar contador informativo
+        if (contadorEl) {
+            const total = filtered.length;
+            const plural = total === 1 ? '' : 's';
+            const catLabel = activeCategory === 'todos' ? 'repuesto' + plural : (CAT_NAMES[activeCategory] || activeCategory);
+            contadorEl.textContent = `Mostrando ${total} ${catLabel}${searchLower ? ` para "${searchQuery}"` : ''}`;
+        }
+
         // Mostrar / ocultar mensaje de "no resultados"
         if (filtered.length === 0) {
             if (noResults) noResults.classList.remove('hidden');
             productosContainer.style.display = 'none';
         } else {
             if (noResults) noResults.classList.add('hidden');
-            productosContainer.style.display = 'grid';
+            productosContainer.style.display = 'flex';
 
             filtered.forEach(prod => {
-                const card = document.createElement('article');
-                card.className = 'producto-card';
-                card.dataset.id = prod.id;
+                const fila = document.createElement('article');
+                fila.className = 'producto-fila';
+                fila.dataset.id = prod.id;
+                fila.setAttribute('tabindex', '0');
+                fila.setAttribute('role', 'button');
+                fila.setAttribute('aria-label', `Ver detalles de ${prod.nombre}`);
 
                 const readableCategory = CAT_NAMES[prod.categoria] || prod.categoria;
+                const tieneImagen = prod.imagen && typeof prod.imagen === 'string' && prod.imagen.trim().length > 0;
 
-                card.innerHTML = `
-                    <div class="card-img-container">
-                        <img src="${prod.imagen}" alt="${prod.nombre}" onerror="this.src='https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=400&q=80'">
+                const imagenHTML = tieneImagen
+                    ? `<div class="fila-imagen">
+                        <img src="${prod.imagen}" alt="${prod.nombre}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="sin-imagen" style="display: none;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                            <span>Sin foto</span>
+                        </div>
+                    </div>`
+                    : `<div class="fila-imagen">
+                        <div class="sin-imagen">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                            <span>Sin foto</span>
+                        </div>
+                    </div>`;
+
+                fila.innerHTML = `
+                    ${imagenHTML}
+                    <div class="fila-info">
+                        <div class="fila-meta">
+                            <span class="tag-categoria">${readableCategory}</span>
+                            <span class="tag-codigo">Cód: <strong>${prod.codigo}</strong></span>
+                        </div>
+                        <h3 class="fila-nombre">${prod.nombre}</h3>
+                        ${prod.descripcion ? `<p class="fila-descripcion">${prod.descripcion}</p>` : ''}
+                        ${prod.compatibilidad ? `<div class="fila-compatibilidad"><strong>Compatibilidad:</strong> ${prod.compatibilidad}</div>` : ''}
                     </div>
-                    <div class="card-info">
-                        <span class="card-categoria-tag">${readableCategory}</span>
-                        <h4>${prod.nombre}</h4>
-                        <div class="card-codigo">Código: <span>${prod.codigo}</span></div>
+                    <div class="fila-acciones">
+                        <span class="btn-ver-detalles">
+                            Ver Detalles
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </span>
                     </div>
-                    <div class="card-footer-btn">Ver Detalles</div>
                 `;
 
-                card.addEventListener('click', () => openModal(prod.id));
-                productosContainer.appendChild(card);
+                fila.addEventListener('click', () => openModal(prod.id));
+                fila.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openModal(prod.id);
+                    }
+                });
+
+                productosContainer.appendChild(fila);
             });
         }
 
@@ -208,6 +260,7 @@ export function initCatalogo(productosData) {
     filtroBtns = document.querySelectorAll('.filtro-btn');
     noResults = document.getElementById('no-results');
     btnResetFilters = document.getElementById('btn-reset-filters');
+    contadorEl = document.getElementById('catalogo-contador');
 
     // Configurar filtros y buscador
     setupFilters();

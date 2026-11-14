@@ -122,7 +122,6 @@
 
 .toolbar-btn {
     background-color: #f4f6f9;
-    border: 1px solid var(--light-gray);
     color: var(--dark);
     width: 38px;
     height: 38px;

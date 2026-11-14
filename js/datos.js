@@ -86,11 +86,20 @@ export const ITEMS_DATA = [
     },
     {
         id: 10,
-        codigo: "Pingu",
-        nombre: "Pingu de peluche",
-        categoria: "peluches",
-        imagen: "https://www.google.com/imgres?q=pingu%20de%20peluche&imgurl=https%3A%2F%2Fstatic.bookscovers.es%2FimagenesP%2F8435776%2F843577600436.JPG&imgrefurl=https%3A%2F%2Fwww.librerialamistral.es%2Fes%2Fobjeto%2Fpeluche-pingu-25-cm_DI90510001&docid=7lkmv6lYJD9EgM&tbnid=TCT43wVZIQORoM&vet=12ahUKEwjMgoeh3eaWAxXYSzABHcf8Ia0QnPAOegUIlAEQAA..i&w=1000&h=1000&hcb=2&ved=2ahUKEwjMgoeh3eaWAxXYSzABHcf8Ia0QnPAOegUIlAEQAA",
-        descripcion: "peluchito de pingu",
-        compatibilidad: "lindo"
+        codigo: "EMP-450",
+        nombre: "Empacadura de Tapa de Válvulas Chevrolet 1.6",
+        categoria: "motor",
+        imagen: "",
+        descripcion: "Empacadura de goma siliconada de alta resistencia térmica para sellado hermético de tapa de válvulas.",
+        compatibilidad: "Chevrolet Aveo 1.6, Corsa 1.6, Daewoo Lanos y Cielo."
+    },
+    {
+        id: 11,
+        codigo: "TER-2044",
+        nombre: "Terminal Exterior de Dirección Reforzado",
+        categoria: "suspension",
+        imagen: null,
+        descripcion: "Terminal de dirección forjado con guardapolvo de poliuretano de alta resistencia a la rotura e impactos.",
+        compatibilidad: "Ford Fiesta Power, Max, Move, EcoSport 4x2 1.6/2.0."
     }
 ];

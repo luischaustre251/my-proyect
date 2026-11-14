@@ -46,37 +46,29 @@ nav ul li a:hover {
     gap: 20px;
 }
 
-.header-tools .buscar {
+.header-tools .buscar,
+.btn-login {
     background: #333;
-    color: #fff;
-    border: 1px solid #444;
     padding: 8px 15px;
     border-radius: 4px;
+    border: 1px solid #444;
     cursor: pointer;
     transition: var(--transition);
 }
 
-.header-tools .buscar:hover {
+.header-tools .buscar:hover,
+.btn-login:hover {
     background-color: var(--primary);
     border-color: var(--primary);
+}
+
+.header-tools .buscar {
+    color: #fff;
 }
 
 .header-tools a {
     font-size: 0.9rem;
     font-weight: 500;
-}
-
-.btn-login {
-    background-color: #333;
-    padding: 8px 15px;
-    border-radius: 4px;
-    border: 1px solid #444;
-    transition: var(--transition);
-}
-
-.btn-login:hover {
-    background-color: var(--primary);
-    border-color: var(--primary);
 }
 
 /* Hamburguesa por defecto oculta en escritorio */

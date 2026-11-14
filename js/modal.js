@@ -12,7 +12,7 @@ const CAT_NAMES = {
 };
 
 // Elementos del DOM (se inicializan en init)
-let modal, modalImg, modalCategoria, modalTitulo, modalCodigo, modalDesc, btnCotizar;
+let modal, modalImg, modalNoImg, modalCategoria, modalTitulo, modalCodigo, modalDesc, btnCotizar;
 
 // Referencia a la lista de productos (se inyecta desde app.js)
 let productosRef = [];
@@ -26,15 +26,29 @@ export function openModal(id) {
     if (!prod || !modal) return;
 
     const readableCategory = CAT_NAMES[prod.categoria] || prod.categoria;
+    const tieneImagen = prod.imagen && typeof prod.imagen === 'string' && prod.imagen.trim().length > 0;
 
-    modalImg.src = prod.imagen;
-    modalImg.alt = prod.nombre;
+    if (tieneImagen) {
+        modalImg.style.display = 'block';
+        if (modalNoImg) modalNoImg.classList.add('hidden');
+        modalImg.src = prod.imagen;
+        modalImg.alt = prod.nombre;
+        modalImg.onerror = () => {
+            modalImg.style.display = 'none';
+            if (modalNoImg) modalNoImg.classList.remove('hidden');
+        };
+    } else {
+        modalImg.style.display = 'none';
+        modalImg.src = '';
+        if (modalNoImg) modalNoImg.classList.remove('hidden');
+    }
+
     modalCategoria.textContent = readableCategory;
     modalTitulo.textContent = prod.nombre;
     modalCodigo.textContent = prod.codigo;
     modalDesc.innerHTML = `
-        ${prod.descripcion}<br><br>
-        <strong>Aplicación/Compatibilidad:</strong> ${prod.compatibilidad}
+        ${prod.descripcion || 'Sin descripción técnica disponible.'}<br><br>
+        <strong>Aplicación/Compatibilidad:</strong> ${prod.compatibilidad || 'Consultar compatibilidad con nuestro equipo mayorista.'}
     `;
 
     const phone = "582763550137";
@@ -55,6 +69,7 @@ function closeModal() {
 export function initModal() {
     modal = document.getElementById('producto-modal');
     modalImg = document.getElementById('modal-producto-img');
+    modalNoImg = document.getElementById('modal-producto-no-img');
     modalCategoria = document.getElementById('modal-producto-categoria');
     modalTitulo = document.getElementById('modal-producto-titulo');
     modalCodigo = document.getElementById('modal-producto-codigo');
