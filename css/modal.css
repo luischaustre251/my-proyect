@@ -185,6 +185,12 @@
     font-size: 1rem;
     box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
     transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn-whatsapp svg {
+    margin-right: 8px;
+    vertical-align: middle;
 }
 
 .btn-whatsapp:hover {

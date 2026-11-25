@@ -2,22 +2,21 @@
 // menu.js — Menú hamburguesa (responsive)
 // ============================================================
 
-export function initMenu() {
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const navMenu = document.getElementById('nav-menu');
+export function inicializarMenu() {
+    const botonMenu = document.getElementById('hamburger-btn');
+    const menuNavegacion = document.getElementById('nav-menu');
 
-    if (!hamburgerBtn || !navMenu) return;
+    if (!botonMenu || !menuNavegacion) return;
 
-    hamburgerBtn.addEventListener('click', () => {
-        hamburgerBtn.classList.toggle('active');
-        navMenu.classList.toggle('active');
+    botonMenu.addEventListener('click', () => {
+        botonMenu.classList.toggle('active');
+        menuNavegacion.classList.toggle('active');
     });
 
-    // Cerrar el menú al hacer clic en un enlace de navegación
-    navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburgerBtn.classList.remove('active');
-            navMenu.classList.remove('active');
+    menuNavegacion.querySelectorAll('a').forEach(enlace => {
+        enlace.addEventListener('click', () => {
+            botonMenu.classList.remove('active');
+            menuNavegacion.classList.remove('active');
         });
     });
 }

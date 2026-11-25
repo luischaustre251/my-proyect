@@ -2,73 +2,72 @@
 // slider.js — Slider del banner principal
 // ============================================================
 
-const slideContent = [
+const contenidoDiapositivas = [
     {
-        title: "Servicios especializados<br>Marcas reconocidas.",
-        desc: "Somos una organización líder en la distribución al por mayor de repuestos automotrices en toda Venezuela."
+        titulo: "Servicios especializados<br>Marcas reconocidas.",
+        descripcion: "Somos una organización líder en la distribución al por mayor de repuestos automotrices en toda Venezuela."
     },
     {
-        title: "Transmisión y Suspensión<br>Calidad y Durabilidad.",
-        desc: "Contamos con un portafolio especializado de más de 45 grupos de repuestos de importación directa."
+        titulo: "Transmisión y Suspensión<br>Calidad y Durabilidad.",
+        descripcion: "Contamos con un portafolio especializado de más de 45 grupos de repuestos de importación directa."
     },
     {
-        title: "Logística Eficiente<br>Despacho a tu negocio.",
-        desc: "Garantizamos rutas de entrega constantes en San Cristóbal y envíos asegurados a todo el territorio nacional."
+        titulo: "Logística Eficiente<br>Despacho a tu negocio.",
+        descripcion: "Garantizamos rutas de entrega constantes en San Cristóbal y envíos asegurados a todo el territorio nacional."
     }
 ];
 
-let currentSlide = 0;
-let slideInterval = null;
+let diapositivaActual = 0;
+let intervaloCarrusel = null;
 
-function showSlide(index, slides, sliderTitle, sliderDesc) {
-    if (slides.length === 0) return;
+function mostrarDiapositiva(indice, diapositivas, tituloCarrusel, descripcionCarrusel) {
+    if (diapositivas.length === 0) return;
 
-    slides.forEach(s => s.classList.remove('active'));
-    currentSlide = (index + slides.length) % slides.length;
-    slides[currentSlide].classList.add('active');
+    diapositivas.forEach(diapositiva => diapositiva.classList.remove('active'));
+    diapositivaActual = (indice + diapositivas.length) % diapositivas.length;
+    diapositivas[diapositivaActual].classList.add('active');
 
-    if (sliderTitle && sliderDesc) {
-        const contentParent = document.querySelector('.banner-content');
-        if (contentParent) contentParent.style.opacity = '0.3';
+    if (tituloCarrusel && descripcionCarrusel) {
+        const contenidoBanner = document.querySelector('.banner-content');
+        if (contenidoBanner) contenidoBanner.style.opacity = '0.3';
 
         setTimeout(() => {
-            sliderTitle.innerHTML = slideContent[currentSlide].title;
-            sliderDesc.textContent = slideContent[currentSlide].desc;
-            if (contentParent) contentParent.style.opacity = '1';
+            tituloCarrusel.innerHTML = contenidoDiapositivas[diapositivaActual].titulo;
+            descripcionCarrusel.textContent = contenidoDiapositivas[diapositivaActual].descripcion;
+            if (contenidoBanner) contenidoBanner.style.opacity = '1';
         }, 150);
     }
 }
 
-function resetTimer(slides, sliderTitle, sliderDesc) {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(() => {
-        showSlide(currentSlide + 1, slides, sliderTitle, sliderDesc);
+function reiniciarTemporizador(diapositivas, tituloCarrusel, descripcionCarrusel) {
+    clearInterval(intervaloCarrusel);
+    intervaloCarrusel = setInterval(() => {
+        mostrarDiapositiva(diapositivaActual + 1, diapositivas, tituloCarrusel, descripcionCarrusel);
     }, 6000);
 }
 
-export function initSlider() {
-    const slides = document.querySelectorAll('.slide');
-    const sliderTitle = document.getElementById('slider-title');
-    const sliderDesc = document.getElementById('slider-desc');
-    const prevBtn = document.getElementById('slider-prev');
-    const nextBtn = document.getElementById('slider-next');
+export function inicializarCarrusel() {
+    const diapositivas = document.querySelectorAll('.slide');
+    const tituloCarrusel = document.getElementById('slider-title');
+    const descripcionCarrusel = document.getElementById('slider-desc');
+    const botonAnterior = document.getElementById('slider-prev');
+    const botonSiguiente = document.getElementById('slider-next');
 
-    if (slides.length === 0) return;
+    if (diapositivas.length === 0) return;
 
-    if (prevBtn && nextBtn) {
-        prevBtn.addEventListener('click', () => {
-            showSlide(currentSlide - 1, slides, sliderTitle, sliderDesc);
-            resetTimer(slides, sliderTitle, sliderDesc);
+    if (botonAnterior && botonSiguiente) {
+        botonAnterior.addEventListener('click', () => {
+            mostrarDiapositiva(diapositivaActual - 1, diapositivas, tituloCarrusel, descripcionCarrusel);
+            reiniciarTemporizador(diapositivas, tituloCarrusel, descripcionCarrusel);
         });
 
-        nextBtn.addEventListener('click', () => {
-            showSlide(currentSlide + 1, slides, sliderTitle, sliderDesc);
-            resetTimer(slides, sliderTitle, sliderDesc);
+        botonSiguiente.addEventListener('click', () => {
+            mostrarDiapositiva(diapositivaActual + 1, diapositivas, tituloCarrusel, descripcionCarrusel);
+            reiniciarTemporizador(diapositivas, tituloCarrusel, descripcionCarrusel);
         });
     }
 
-    // Iniciar auto-play
-    slideInterval = setInterval(() => {
-        showSlide(currentSlide + 1, slides, sliderTitle, sliderDesc);
+    intervaloCarrusel = setInterval(() => {
+        mostrarDiapositiva(diapositivaActual + 1, diapositivas, tituloCarrusel, descripcionCarrusel);
     }, 6000);
 }

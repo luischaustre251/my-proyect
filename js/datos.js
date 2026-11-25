@@ -2,7 +2,7 @@
 // datos.js — Base de datos de productos
 // ============================================================
 
-export const ITEMS_DATA = [
+export const DATOS_PRODUCTOS = [
     {
         id: 1,
         codigo: "Y-1025",
@@ -53,7 +53,7 @@ export const ITEMS_DATA = [
         codigo: "CH-19207929",
         nombre: "Bomba de Aceite V8 6.0 LTS",
         categoria: "bombas",
-        imagen: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=400&q=80",
+        imagen: "",
         descripcion: "Bomba de aceite de alto volumen y alta presión para motores Chevrolet V8. Diseñada para mantener un flujo lubricante constante en condiciones extremas de carga y temperatura de motores pesados.",
         compatibilidad: "Chevrolet 6.0 LTS (19207929) V8 5967 CC / 364 CID / C2500, C3500 HD, Rey Camión."
     },
@@ -62,7 +62,7 @@ export const ITEMS_DATA = [
         codigo: "CH-CORSA-OPTRA",
         nombre: "Kit de Tiempo Sincronizado Chevrolet 1.8",
         categoria: "motor",
-        imagen: "https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&w=400&q=80",
+        imagen: "",
         descripcion: "Kit completo de correa de distribución y polea tensora para la sincronización precisa de las válvulas del motor. Fabricado con goma reforzada resistente al calor y fricción.",
         compatibilidad: "Chevrolet Corsa todos (96/05), Optra 1.8, Palio 1.8, Meriva, Montana."
     },
@@ -71,7 +71,7 @@ export const ITEMS_DATA = [
         codigo: "CH-TAHOE-5.3",
         nombre: "Bomba de Agua Motor 5.3 LT V8",
         categoria: "bombas",
-        imagen: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=400&q=80",
+        imagen: "",
         descripcion: "Bomba de agua de aluminio con sello mecánico mejorado. Diseñada para proporcionar una óptima refrigeración del bloque motor y prevenir el recalentamiento en condiciones severas.",
         compatibilidad: "Chevrolet 5.3 LT C1500, C2500, C3500, Silverado, Avalanche, Tahoe (2002 a 2013)."
     },
@@ -80,7 +80,7 @@ export const ITEMS_DATA = [
         codigo: "CY-ORIN-1.8H",
         nombre: "Collarín Hidráulico de Embrague Chery",
         categoria: "suspension",
-        imagen: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=400&q=80",
+        imagen: "",
         descripcion: "Collarín hidráulico (cilindro esclavo concéntrico) para embrague. Asegura cambios de marcha suaves y precisos, con sellos de alta tolerancia química al fluido de embrague.",
         compatibilidad: "Chery Orinoco 1.8 LT y modelos compatibles."
     },
@@ -103,3 +103,11 @@ export const ITEMS_DATA = [
         compatibilidad: "Ford Fiesta Power, Max, Move, EcoSport 4x2 1.6/2.0."
     }
 ];
+
+export const NOMBRES_CATEGORIAS = {
+    transmision: "Transmisión",
+    rodamientos: "Rodamientos",
+    suspension: "Suspensión",
+    motor: "Motor",
+    bombas: "Bombas"
+};

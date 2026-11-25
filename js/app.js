@@ -1,24 +1,27 @@
-// ============================================================
-// app.js — Punto de entrada principal (inicialización)
-// ============================================================
 
-import { ITEMS_DATA } from './datos.js';
-import { initMenu } from './menu.js';
-import { initSlider } from './slider.js';
-import { initModal, setProductosRef } from './modal.js';
-import { initCatalogo } from './catalogo.js';
+// app.js — Punto de entrada principal (inicialización)
+
+import { DATOS_PRODUCTOS } from './datos.js';
+import { inicializarMenu } from './menu.js';
+import { inicializarCarrusel } from './slider.js';
+import { inicializarModal, establecerProductosReferencia } from './modal.js';
+import { inicializarCatalogo } from './catalogo.js';
+import { inicializarAutenticacion } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Menú hamburguesa (todas las páginas)
-    initMenu();
+    inicializarMenu();
 
     // 2. Slider del banner (solo index.html)
-    initSlider();
+    inicializarCarrusel();
 
     // 3. Modal de producto (solo catalogo.html)
-    initModal();
+    inicializarModal();
 
     // 4. Catálogo de productos
-    setProductosRef(ITEMS_DATA);
-    initCatalogo(ITEMS_DATA);
+    establecerProductosReferencia(DATOS_PRODUCTOS);
+    inicializarCatalogo(DATOS_PRODUCTOS);
+
+    // 5. Validador de usuario y autenticación (admin / 12345678)
+    inicializarAutenticacion();
 });

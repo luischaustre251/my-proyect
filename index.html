@@ -13,8 +13,11 @@
     <link rel="stylesheet" href="css/categorias.css">
     <link rel="stylesheet" href="css/nosotros.css">
     <link rel="stylesheet" href="css/despacho.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/nosotros-inicio.css">
 </head>
 
 <body>
@@ -30,13 +33,14 @@
                 <li><a href="#categorias">Categorías</a></li>
                 <li><a href="catalogo.html" class="highlight-link">Catálogo</a></li>
                 <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                <li><a href="login.html" class="nav-login-link">Acceso</a></li>
             </ul>
         </nav>
 
         <div class="header-tools">
-            <button class="buscar" id="header-search-btn">Buscar</button>
             <a href="#despacho">Ubícanos</a>
             <a href="#sobre-nosotros">Sobre Nosotros</a>
+            <button class="btn-login" id="header-login-btn">Iniciar Sesión</button>
         </div>
 
         <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú">
@@ -50,15 +54,9 @@
 
         <section id="inicio">
             <div class="banner-background">
-                <div class="slide active"
-                    style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/almacen1.jpeg');">
-                </div>
-                <div class="slide"
-                    style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/almacen3.jpeg');">
-                </div>
-                <div class="slide"
-                    style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/almacen2.jpeg');">
-                </div>
+                <div class="slide slide-1 active"></div>
+                <div class="slide slide-2"></div>
+                <div class="slide slide-3"></div>
             </div>
 
             <div class="banner-content">
@@ -67,9 +65,7 @@
                 <p id="slider-desc">Somos una organización líder en la distribución al por mayor de repuestos
                     automotrices en toda Venezuela.</p>
                 <a href="#productos" class="btn">DESTACADOS</a>
-                <a href="catalogo.html" class="btn btn-outline"
-                    style="margin-left: 15px; background-color: transparent; border: 2px solid #fff; color: #fff;">CATÁLOGO
-                    COMPLETO</a>
+                <a href="catalogo.html" class="btn btn-outline">CATÁLOGO COMPLETO</a>
             </div>
 
             <div class="slider-controls">
@@ -180,7 +176,7 @@
                 </div>
             </div>
 
-            <div class="nosotros-cta" style="text-align: center; margin-top: 50px;">
+            <div class="nosotros-cta">
                 <a href="nosotros.html" class="btn btn-large">Conoce más sobre nosotros</a>
             </div>
         </section>
@@ -188,7 +184,7 @@
 
         <section id="despacho">
             <div class="despacho-banner">
-                <img src="images/almacen4.jpeg"
+                <img src="images/almacen/almacen4.jpeg"
                     alt="Camión de reparto en ruta y equipo logístico de la empresa listo para despacho nacional">
             </div>
 
@@ -222,6 +218,7 @@
                     <li><a href="#categorias">Categorías</a></li>
                     <li><a href="catalogo.html">Catálogo de Repuestos</a></li>
                     <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+                    <li><a href="login.html">Acceso de Usuario</a></li>
                 </ul>
             </div>
 
@@ -239,6 +236,29 @@
                 UPTAIET (PNF en Informática).</p>
         </div>
     </footer>
+
+    <!-- Modal de Inicio de Sesión (Validador Simple) -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content modal-login-content">
+            <button class="close-modal" id="close-login-modal-btn" aria-label="Cerrar modal">&times;</button>
+            <h3 class="login-titulo">Validador de Usuario</h3>
+            <p class="login-subtitulo">Ingrese credenciales de acceso</p>
+
+            <form id="login-form-modal">
+                <div class="login-form-group">
+                    <label for="modal-usuario">Usuario</label>
+                    <input type="text" id="modal-usuario" placeholder="Ej: admin" required autocomplete="username">
+                </div>
+                <div class="login-form-group">
+                    <label for="modal-password">Contraseña</label>
+                    <input type="password" id="modal-password" placeholder="Ej: 12345678" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="login-btn-submit">Validar</button>
+            </form>
+
+            <div id="modal-login-mensaje" class="login-mensaje"></div>
+        </div>
+    </div>
 
     <!-- JS Modular (ES6 Modules) -->
     <script type="module" src="js/app.js"></script>

@@ -9,7 +9,9 @@
     <!-- CSS Modular -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/about-page.css">
+    <link rel="stylesheet" href="css/nosotros.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -29,13 +31,14 @@
                 <li><a href="index.html#categorias">Categorías</a></li>
                 <li><a href="catalogo.html" class="highlight-link">Catálogo</a></li>
                 <li><a href="nosotros.html" class="active-nav">Sobre Nosotros</a></li>
+                <li><a href="login.html" class="nav-login-link">Acceso</a></li>
             </ul>
         </nav>
 
         <div class="header-tools">
-            <button class="buscar" id="header-search-btn">Buscar</button>
             <a href="index.html#despacho">Ubícanos</a>
             <a href="nosotros.html" class="active-nav">Sobre Nosotros</a>
+            <button class="btn-login" id="header-login-btn">Iniciar Sesión</button>
         </div>
 
         <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú">
@@ -100,7 +103,8 @@
                             un compromiso constante con la excelencia en cada pieza que comercializamos.</p>
                     </div>
                     <div class="mision-vision-image">
-                        <img class="about-image" src="images/almacen6.jpeg" alt="Equipo de Casique C.A. trabajando en sus oficinas.">
+                        <img class="about-image" src="images/almacen/almacen6.jpeg"
+                            alt="Equipo de Casique C.A. trabajando en sus oficinas.">
                     </div>
                 </div>
 
@@ -121,7 +125,8 @@
                             el crecimiento sostenible de nuestros socios comerciales en cada región.</p>
                     </div>
                     <div class="mision-vision-image">
-                        <img class="about-image" src="images/almacen2.jpeg" alt="Área de trabajo y almacenamiento de Casique C.A.">
+                        <img class="about-image" src="images/almacen/almacen2.jpeg"
+                            alt="Área de trabajo y almacenamiento de Casique C.A.">
                     </div>
                 </div>
             </div>
@@ -146,6 +151,7 @@
                     <li><a href="index.html#categorias">Categorías</a></li>
                     <li><a href="catalogo.html">Catálogo de Repuestos</a></li>
                     <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                    <li><a href="login.html">Acceso de Usuario</a></li>
                 </ul>
             </div>
 
@@ -163,6 +169,30 @@
                 UPTAIET (PNF en Informática).</p>
         </div>
     </footer>
+
+    <!-- Modal de Inicio de Sesión (Validador Simple) -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content modal-login-content">
+            <button class="close-modal" id="close-login-modal-btn" aria-label="Cerrar modal">&times;</button>
+            <h3 class="login-titulo">Validador de Usuario</h3>
+            <p class="login-subtitulo">Ingrese credenciales de acceso</p>
+
+            <form id="login-form-modal">
+                <div class="login-form-group">
+                    <label for="modal-usuario">Usuario</label>
+                    <input type="text" id="modal-usuario" placeholder="Ej: admin" required autocomplete="username">
+                </div>
+                <div class="login-form-group">
+                    <label for="modal-password">Contraseña</label>
+                    <input type="password" id="modal-password" placeholder="Ej: 12345678" required
+                        autocomplete="current-password">
+                </div>
+                <button type="submit" class="login-btn-submit">Validar</button>
+            </form>
+
+            <div id="modal-login-mensaje" class="login-mensaje"></div>
+        </div>
+    </div>
 
     <!-- JS Modular (ES6 Modules) -->
     <script type="module" src="js/app.js"></script>

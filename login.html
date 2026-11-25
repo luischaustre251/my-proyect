@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso al Sistema | Casique C.A. - Mayor de Repuestos</title>
+
+    <!-- CSS Modular -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <!-- Header Corporativo -->
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Logo de la empresa Casique C.A.">
+            </a>
+        </div>
+
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="index.html#inicio">Inicio</a></li>
+                <li><a href="index.html#categorias">Categorías</a></li>
+                <li><a href="catalogo.html" class="highlight-link">Catálogo</a></li>
+                <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                <li><a href="login.html" class="nav-login-link active-nav">Acceso</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-tools">
+            <a href="index.html#despacho">Ubícanos</a>
+            <a href="nosotros.html">Sobre Nosotros</a>
+            <button class="btn-login" id="header-login-btn">Iniciar Sesión</button>
+        </div>
+
+        <button class="hamburger" id="hamburger-btn" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <main class="login-page">
+        <div class="login-card">
+            <!-- Formulario del validador -->
+            <div id="login-card-form">
+                <h1 class="login-titulo">Validador de Usuario</h1>
+                <p class="login-subtitulo">Ingrese sus credenciales de acceso</p>
+
+                <form id="login-form-page">
+                    <div class="login-form-group">
+                        <label for="page-usuario">Usuario</label>
+                        <input type="text" id="page-usuario" placeholder="Ej: admin" required autocomplete="username">
+                    </div>
+
+                    <div class="login-form-group">
+                        <label for="page-password">Contraseña</label>
+                        <input type="password" id="page-password" placeholder="Ej: 12345678" required autocomplete="current-password">
+                    </div>
+
+                    <button type="submit" class="login-btn-submit">Validar</button>
+                </form>
+
+                <div id="page-login-mensaje" class="login-mensaje"></div>
+            </div>
+
+            <!-- Panel cuando la sesión está activa -->
+            <div id="panel-sesion-activa" class="panel-sesion" style="display: none;">
+                <h2>Sesión Iniciada</h2>
+                <p>Usuario autenticado: <strong>admin</strong></p>
+                <div class="panel-sesion-acciones">
+                    <a href="catalogo.html" class="btn-login-secundario">Ver Catálogo</a>
+                    <button id="btn-cerrar-sesion-page" class="btn-cerrar-sesion">Cerrar Sesión</button>
+                </div>
+            </div>
+
+            <a href="index.html" class="login-volver-link">&larr; Volver a la página principal</a>
+        </div>
+    </main>
+
+    <!-- Pie de Página Institucional -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col footer-about">
+                <img src="images/logo.png" alt="Casique C.A. Logo" class="footer-logo">
+                <p>Distribución al por mayor de repuestos automotrices a nivel nacional. Especialistas en suspensión y
+                    transmisión.</p>
+                <div class="footer-rif">RIF: J-31714927-0</div>
+            </div>
+
+            <div class="footer-col footer-links">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="index.html#inicio">Inicio</a></li>
+                    <li><a href="index.html#categorias">Categorías</a></li>
+                    <li><a href="catalogo.html">Catálogo de Repuestos</a></li>
+                    <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                    <li><a href="login.html">Acceso de Usuario</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-contact">
+                <h3>Contacto e Información</h3>
+                <p><strong>Dirección:</strong> Vereda 3 # 3-50 Barrio Sucre parte alta, San Cristóbal, Estado Táchira,
+                    Venezuela.</p>
+                <p><strong>Teléfono:</strong> <a href="tel:+582763550137">0276 - 3550137</a></p>
+                <p><strong>Horarios:</strong> Lunes a Viernes de 8:00 AM - 5:00 PM</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Casique C.A. Todos los derechos reservados. Desarrollado como Proyecto Socio Tecnológico -
+                UPTAIET (PNF en Informática).</p>
+        </div>
+    </footer>
+
+    <!-- JS Modular (ES6 Modules) -->
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
