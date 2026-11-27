@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso al Sistema | Casique C.A. - Mayor de Repuestos</title>
+    <title>Iniciar sesión | Casique C.A. - Mayor de Repuestos</title>
 
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/layout.css">
@@ -25,15 +25,20 @@
 
         <nav id="nav-menu">
             <ul>
+                <li class="nav-sesion" hidden>
+                    <span class="header-saludo">Hola</span>
+                    <button type="button" class="btn-cerrar-sesion-header">Cerrar sesión</button>
+                </li>
                 <li><a href="index.html#inicio">Inicio</a></li>
                 <li><a href="index.html#categorias">Categorías</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="nosotros.html">Sobre Nosotros</a></li>
-                <li><a href="login.html" class="nav-login-link active-nav">Acceso</a></li>
             </ul>
         </nav>
 
         <div class="header-tools">
+            <p class="header-saludo" id="header-saludo" hidden>Hola</p>
+            <button type="button" class="btn-cerrar-sesion-header" id="btn-cerrar-sesion-header" hidden>Cerrar sesión</button>
             <button class="btn-login" id="header-login-btn">Iniciar Sesión</button>
         </div>
 
@@ -48,9 +53,8 @@
         <div class="login-card">
             <!-- Formulario del validador -->
             <div id="login-card-form">
-                <h1 class="login-titulo">Validador de Usuario</h1>
-                <p class="login-subtitulo">Ingrese sus credenciales de acceso</p>
-
+                <h1 class="login-titulo">Iniciar sesión</h1>
+                <p class="login-subtitulo">Ingresa tu usuario y contraseña</p>
                 <form id="login-form-page">
                     <div class="login-form-group">
                         <label for="page-usuario">Usuario o correo</label>
@@ -62,10 +66,10 @@
                         <input type="password" id="page-contrasena" placeholder="Ej: 12345678" required autocomplete="current-password">
                     </div>
 
-                    <button type="submit" class="login-btn-submit">Validar</button>
+                    <button type="submit" class="login-btn-submit">Iniciar sesión</button>
                 </form>
 
-                <button type="button" class="login-register-toggle" id="mostrar-registro-modal">Crear cuenta nueva</button>
+                <button type="button" class="login-register-toggle" id="mostrar-registro-modal">Crear cuenta</button>
                 <form id="registro-form-modal" class="hidden">
                     <div class="login-form-group">
                         <label for="registro-nombre">Nombre</label>
@@ -88,7 +92,7 @@
             <!-- Panel cuando la sesión está activa -->
             <div id="panel-sesion-activa" class="panel-sesion" style="display: none;">
                 <h2>Sesión Iniciada</h2>
-                <p>Usuario autenticado: <strong id="usuario-autenticado">admin</strong></p>
+                <p>Hola, <strong id="usuario-autenticado"></strong></p>
                 <div class="panel-sesion-acciones">
                     <a href="catalogo.html" class="btn-login-secundario">Ver Catálogo</a>
                     <button id="btn-cerrar-sesion-page" class="btn-cerrar-sesion">Cerrar Sesión</button>
@@ -116,7 +120,6 @@
                     <li><a href="index.html#categorias">Categorías</a></li>
                     <li><a href="catalogo.html">Catálogo de Repuestos</a></li>
                     <li><a href="nosotros.html">Sobre Nosotros</a></li>
-                    <li><a href="login.html">Acceso de Usuario</a></li>
                 </ul>
             </div>
 

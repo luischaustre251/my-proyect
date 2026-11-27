@@ -46,8 +46,7 @@ nav ul li a:hover {
     gap: 20px;
 }
 
-.header-tools .buscar,
-.btn-login {
+.header-tools .buscar {
     background: #333;
     padding: 8px 15px;
     border-radius: 4px;
@@ -56,10 +55,27 @@ nav ul li a:hover {
     transition: var(--transition);
 }
 
-.header-tools .buscar:hover,
-.btn-login:hover {
+.btn-login {
+    background: var(--primary);
+    color: #042028;
+    padding: 9px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    transition: var(--transition);
+}
+
+.header-tools .buscar:hover {
     background-color: var(--primary);
     border-color: var(--primary);
+    color: #042028;
+}
+
+.btn-login:hover {
+    background-color: var(--primary-hover);
 }
 
 .header-tools .buscar {
@@ -69,6 +85,33 @@ nav ul li a:hover {
 .header-tools a {
     font-size: 0.9rem;
     font-weight: 500;
+}
+
+.header-saludo {
+    margin: 0;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.btn-cerrar-sesion-header {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #666;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.btn-cerrar-sesion-header:hover {
+    background-color: #dc2626;
+    border-color: #dc2626;
+}
+
+.nav-sesion {
+    display: none;
 }
 
 /* Hamburguesa por defecto oculta en escritorio */

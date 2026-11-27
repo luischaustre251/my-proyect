@@ -25,15 +25,20 @@
 
         <nav id="nav-menu">
             <ul>
+                <li class="nav-sesion" hidden>
+                    <span class="header-saludo">Hola</span>
+                    <button type="button" class="btn-cerrar-sesion-header">Cerrar sesión</button>
+                </li>
                 <li><a href="index.html#inicio">Inicio</a></li>
                 <li><a href="index.html#categorias">Categorías</a></li>
                 <li><a href="catalogo.html" class="active-nav">Catálogo</a></li>
                 <li><a href="nosotros.html">Sobre Nosotros</a></li>
-                <li><a href="login.html" class="nav-login-link">Acceso</a></li>
             </ul>
         </nav>
 
         <div class="header-tools">
+            <p class="header-saludo" id="header-saludo" hidden>Hola</p>
+            <button type="button" class="btn-cerrar-sesion-header" id="btn-cerrar-sesion-header" hidden>Cerrar sesión</button>
             <button class="btn-login" id="header-login-btn">Iniciar Sesión</button>
         </div>
 
@@ -136,7 +141,6 @@
                     <li><a href="index.html#categorias">Categorías</a></li>
                     <li><a href="catalogo.html">Catálogo de Repuestos</a></li>
                     <li><a href="nosotros.html">Sobre Nosotros</a></li>
-                    <li><a href="login.html">Acceso de Usuario</a></li>
                 </ul>
             </div>
 
@@ -159,9 +163,8 @@
     <div id="login-modal" class="modal">
         <div class="modal-content modal-login-content">
             <button class="close-modal" id="close-login-modal-btn" aria-label="Cerrar modal">&times;</button>
-            <h3 class="login-titulo">Validador de Usuario</h3>
-            <p class="login-subtitulo">Ingrese credenciales de acceso</p>
-
+            <h3 class="login-titulo">Iniciar sesión</h3>
+            <p class="login-subtitulo">Ingresa tu usuario y contraseña</p>
             <form id="login-form-modal">
                 <div class="login-form-group">
                     <label for="modal-usuario">Usuario o correo</label>
@@ -171,10 +174,10 @@
                     <label for="modal-contrasena">Contraseña</label>
                     <input type="password" id="modal-contrasena" placeholder="Ej: 12345678" required autocomplete="current-password">
                 </div>
-                <button type="submit" class="login-btn-submit">Validar</button>
+                <button type="submit" class="login-btn-submit">Iniciar sesión</button>
             </form>
 
-            <button type="button" class="login-register-toggle" id="mostrar-registro-modal">Crear cuenta nueva</button>
+            <button type="button" class="login-register-toggle" id="mostrar-registro-modal">Crear cuenta</button>
             <form id="registro-form-modal" class="hidden">
                 <div class="login-form-group">
                     <label for="registro-nombre">Nombre</label>

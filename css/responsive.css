@@ -5,6 +5,7 @@
 /* --- TABLET Y MÓVIL (≤992px) --- */
 @media (max-width: 992px) {
     header {
+        justify-content: flex-start;
         padding: 0 6%;
     }
 
@@ -40,7 +41,32 @@
     }
 
     .header-tools {
-        display: none; /* Se oculta o integra */
+        display: flex;
+        margin-left: auto;
+        margin-right: 14px;
+        gap: 0;
+    }
+
+    .header-tools .header-saludo,
+    .header-tools .btn-cerrar-sesion-header {
+        display: none;
+    }
+
+    .header-tools .btn-login {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+
+    .nav-sesion:not([hidden]) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .nav-sesion .btn-cerrar-sesion-header {
+        width: 100%;
     }
 
     .hamburger {

@@ -284,3 +284,33 @@
     color: #166534;
     border: 1px solid #86efac;
 }
+
+.logout-acciones {
+    display: flex;
+    gap: 10px;
+}
+
+.logout-acciones button {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-logout-cancelar {
+    background: #f1f5f9;
+    color: #374151;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-logout-confirmar {
+    background: #dc2626;
+    color: #fff;
+    border: 1px solid #dc2626;
+}
+
+.btn-logout-confirmar:hover {
+    background: #b91c1c;
+}

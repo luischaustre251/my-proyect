@@ -133,7 +133,12 @@ function configurarFiltros() {
 
     document.querySelectorAll('.categoria-item').forEach(elemento => {
         elemento.addEventListener('click', () => {
-            actualizarCategoriaActiva(elemento.dataset.filter);
+            const categoria = elemento.dataset.filter;
+            if (!productosContenedor) {
+                window.location.href = `catalogo.html?categoria=${encodeURIComponent(categoria)}`;
+                return;
+            }
+            actualizarCategoriaActiva(categoria);
             document.getElementById('productos')?.scrollIntoView({ behavior: 'smooth' });
             renderizarProductos();
         });
@@ -214,6 +219,11 @@ export function inicializarCatalogo(datosProductos) {
     sinResultados = document.getElementById('no-results');
     botonRestablecer = document.getElementById('btn-reset-filters');
     contadorElementos = document.getElementById('catalogo-contador');
+
+    const categoriaUrl = new URLSearchParams(window.location.search).get('categoria');
+    if (categoriaUrl && NOMBRES_CATEGORIAS[categoriaUrl]) {
+        actualizarCategoriaActiva(categoriaUrl);
+    }
 
     configurarFiltros();
     configurarBusqueda();

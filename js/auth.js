@@ -33,12 +33,6 @@ export function registrarUsuario(nombre, correo, contrasena) {
     return true;
 }
 
-if (typeof window !== "undefined") {
-    window.validarUsuario = validarUsuario;
-    window.USUARIO_CORRECTO = USUARIO_CORRECTO;
-    window.CONTRASENA_CORRECTA = CONTRASENA_CORRECTA;
-}
-
 export function usuarioActual() {
     return sessionStorage.getItem(CLAVE_SESION);
 }
@@ -55,20 +49,93 @@ export function cerrarSesion() {
     sessionStorage.removeItem(CLAVE_SESION);
 }
 
+function crearModalCerrarSesion() {
+    const modal = document.createElement("div");
+    modal.id = "logout-modal";
+    modal.className = "modal";
+    modal.innerHTML = `
+        <div class="modal-content modal-login-content">
+            <h3 class="login-titulo">Cerrar sesión</h3>
+            <p class="login-subtitulo" id="logout-texto">¿Quieres salir de tu cuenta?</p>
+            <div class="logout-acciones">
+                <button type="button" class="btn-logout-cancelar" id="logout-cancelar">Cancelar</button>
+                <button type="button" class="btn-logout-confirmar" id="logout-confirmar">Cerrar sesión</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    const ocultar = () => modal.classList.remove("active");
+    modal.querySelector("#logout-cancelar").addEventListener("click", ocultar);
+    modal.addEventListener("click", (evento) => {
+        if (evento.target === modal) ocultar();
+    });
+    modal.querySelector("#logout-confirmar").addEventListener("click", () => {
+        cerrarSesion();
+        actualizarInterfazAutenticacion();
+        ocultar();
+        mostrarMensaje(
+            document.getElementById("page-login-mensaje"),
+            "Sesión cerrada correctamente.",
+            "exito"
+        );
+    });
+
+    return modal;
+}
+
+function pedirCerrarSesion() {
+    const modal = document.getElementById("logout-modal") || crearModalCerrarSesion();
+    const texto = modal.querySelector("#logout-texto");
+    const nombre = nombreVisible(usuarioActual());
+    if (texto) {
+        texto.textContent = nombre
+            ? `Hola, ${nombre}. ¿Quieres salir de tu cuenta?`
+            : "¿Quieres salir de tu cuenta?";
+    }
+    modal.classList.add("active");
+}
+
 function mostrarMensaje(elemento, texto, tipo) {
     if (!elemento) return;
     elemento.className = `login-mensaje ${tipo}`;
     elemento.textContent = texto;
 }
 
+function nombreVisible(usuario) {
+    if (!usuario) return "";
+    const cuenta = obtenerUsuarios().find(
+        item => item.correo === usuario.trim().toLowerCase()
+    );
+    if (cuenta && cuenta.nombre) return cuenta.nombre;
+    if (usuario.trim().toLowerCase() === USUARIO_CORRECTO) return "Admin";
+    return usuario.split("@")[0];
+}
+
 export function actualizarInterfazAutenticacion() {
     const usuario = usuarioActual();
     const activo = Boolean(usuario);
-    const textoAcceso = activo ? `Salir (${usuario})` : "Iniciar Sesión";
-    const textoNavegacion = activo ? `Sesión (${usuario})` : "Acceso";
+    const nombre = nombreVisible(usuario);
 
-    document.querySelectorAll(".btn-login, #header-login-btn, .nav-login-link").forEach((elemento) => {
-        elemento.textContent = elemento.matches(".nav-login-link") ? textoNavegacion : textoAcceso;
+    document.querySelectorAll(".header-saludo").forEach((elemento) => {
+        elemento.textContent = `Hola, ${nombre}`;
+    });
+
+    document.querySelectorAll(".nav-sesion").forEach((elemento) => {
+        elemento.hidden = !activo;
+    });
+
+    document.querySelectorAll("#header-saludo").forEach((elemento) => {
+        elemento.hidden = !activo;
+    });
+
+    document.querySelectorAll("#btn-cerrar-sesion-header").forEach((elemento) => {
+        elemento.hidden = !activo;
+    });
+
+    document.querySelectorAll("#header-login-btn").forEach((elemento) => {
+        elemento.hidden = activo;
+        elemento.textContent = "Iniciar Sesión";
     });
 
     const tarjetaFormulario = document.getElementById("login-card-form");
@@ -77,7 +144,7 @@ export function actualizarInterfazAutenticacion() {
         tarjetaFormulario.style.display = activo ? "none" : "block";
         panelSesion.style.display = activo ? "block" : "none";
         const usuarioPanel = document.getElementById("usuario-autenticado");
-        if (usuarioPanel) usuarioPanel.textContent = usuario || "";
+        if (usuarioPanel) usuarioPanel.textContent = nombre;
     }
 }
 
@@ -179,28 +246,25 @@ export function inicializarAutenticacion() {
 
     const botonCerrarPagina = document.getElementById("btn-cerrar-sesion-page");
     if (botonCerrarPagina) {
-        botonCerrarPagina.addEventListener("click", () => {
-            cerrarSesion();
-            actualizarInterfazAutenticacion();
-            mostrarMensaje(
-                document.getElementById("page-login-mensaje"),
-                "Sesión cerrada correctamente.",
-                "exito"
-            );
-        });
+        botonCerrarPagina.addEventListener("click", pedirCerrarSesion);
     }
 
-    document.querySelectorAll(".btn-login, #header-login-btn").forEach((boton) => {
+    document.querySelectorAll('a[href*="wa.me"]').forEach((enlace) => {
+        enlace.addEventListener("click", (evento) => {
+            if (estaAutenticado()) return;
+            evento.preventDefault();
+            if (modal) modal.classList.add("active");
+        });
+    });
+
+    document.querySelectorAll(".btn-cerrar-sesion-header").forEach((boton) => {
+        boton.addEventListener("click", pedirCerrarSesion);
+    });
+
+    document.querySelectorAll("#header-login-btn").forEach((boton) => {
         boton.addEventListener("click", (evento) => {
-            if (estaAutenticado()) {
-                evento.preventDefault();
-                if (confirm(`¿Deseas cerrar la sesión de ${usuarioActual()}?`)) {
-                    cerrarSesion();
-                    actualizarInterfazAutenticacion();
-                    window.location.reload();
-                }
-            } else if (modal) {
-                evento.preventDefault();
+            evento.preventDefault();
+            if (modal) {
                 modal.classList.add("active");
             } else if (!window.location.pathname.endsWith("login.html")) {
                 window.location.href = "login.html";
