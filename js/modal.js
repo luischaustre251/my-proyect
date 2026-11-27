@@ -1,13 +1,12 @@
-// ============================================================
 // modal.js — Modal de detalle de producto y WhatsApp
-// ============================================================
 
 import { NOMBRES_CATEGORIAS } from './datos.js';
+import { estaAutenticado } from './auth.js';
 
 // Elementos del DOM que se inicializan al cargar el módulo
-let modal, imagenModal, sinImagenModal, categoriaModal, tituloModal, codigoModal, descripcionModal, botonCotizar;
+let modal, imagenModal, modalImgWrapper, categoriaModal, tituloModal, codigoModal, descripcionModal, botonCotizar;
 
-// Referencia a la lista de productos (se inyecta desde app.js)
+// desde app.js
 let referenciaProductos = [];
 
 export function establecerProductosReferencia(productos) {
@@ -21,21 +20,25 @@ export function abrirModal(id) {
     const nombreCategoria = NOMBRES_CATEGORIAS[producto.categoria] || producto.categoria;
     const tieneImagen = producto.imagen && typeof producto.imagen === 'string' && producto.imagen.trim().length > 0;
 
+    imagenModal.onload = null;
+    imagenModal.onerror = null;
+    imagenModal.style.display = 'none';
+    modalImgWrapper?.classList.remove('has-image');
+
     if (tieneImagen) {
-        if (imagenModal?.parentElement) imagenModal.parentElement.style.display = 'block';
-        imagenModal.style.display = 'block';
-        if (sinImagenModal) sinImagenModal.classList.add('hidden');
-        imagenModal.src = producto.imagen;
-        imagenModal.alt = producto.nombre;
+        imagenModal.onload = () => {
+            imagenModal.style.display = 'block';
+            modalImgWrapper?.classList.add('has-image');
+        };
         imagenModal.onerror = () => {
             imagenModal.style.display = 'none';
-            if (sinImagenModal) sinImagenModal.classList.remove('hidden');
+            imagenModal.removeAttribute('src');
+            modalImgWrapper?.classList.remove('has-image');
         };
+        imagenModal.src = producto.imagen;
+        imagenModal.alt = producto.nombre;
     } else {
-        if (imagenModal?.parentElement) imagenModal.parentElement.style.display = 'none';
-        imagenModal.style.display = 'none';
-        imagenModal.src = '';
-        if (sinImagenModal) sinImagenModal.classList.remove('hidden');
+        imagenModal.removeAttribute('src');
     }
 
     categoriaModal.textContent = nombreCategoria;
@@ -64,14 +67,23 @@ function cerrarModal() {
 export function inicializarModal() {
     modal = document.getElementById('producto-modal');
     imagenModal = document.getElementById('modal-producto-img');
-    sinImagenModal = document.getElementById('modal-producto-no-img');
+    modalImgWrapper = document.getElementById('modal-img-wrapper');
     categoriaModal = document.getElementById('modal-producto-categoria');
     tituloModal = document.getElementById('modal-producto-titulo');
     codigoModal = document.getElementById('modal-producto-codigo');
     descripcionModal = document.getElementById('modal-producto-descripcion');
     botonCotizar = document.getElementById('modal-btn-cotizar');
+    const modalAcceso = document.getElementById('login-modal');
 
     const botonCerrarModal = document.getElementById('close-modal-btn');
+
+    if (botonCotizar) {
+        botonCotizar.addEventListener('click', (evento) => {
+            if (estaAutenticado()) return;
+            evento.preventDefault();
+            if (modalAcceso) modalAcceso.classList.add('active');
+        });
+    }
 
     if (botonCerrarModal) {
         botonCerrarModal.addEventListener('click', cerrarModal);

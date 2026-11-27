@@ -5,6 +5,7 @@
 .seccion-catalogo {
     background-color: #f4f6f9;
     padding-top: 50px;
+    scroll-margin-top: 80px;
 }
 
 .seccion-catalogo h2 {

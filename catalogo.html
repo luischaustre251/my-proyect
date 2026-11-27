@@ -6,13 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Repuestos | Casique C.A. - Mayor de Repuestos</title>
 
-    <!-- CSS Modular -->
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/catalogo.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/paginas/catalogo.css">
     <link rel="stylesheet" href="css/modal.css">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 
@@ -30,15 +27,13 @@
             <ul>
                 <li><a href="index.html#inicio">Inicio</a></li>
                 <li><a href="index.html#categorias">Categorías</a></li>
-                <li><a href="catalogo.html" class="highlight-link">Catálogo</a></li>
+                <li><a href="catalogo.html" class="active-nav">Catálogo</a></li>
                 <li><a href="nosotros.html">Sobre Nosotros</a></li>
                 <li><a href="login.html" class="nav-login-link">Acceso</a></li>
             </ul>
         </nav>
 
         <div class="header-tools">
-            <a href="index.html#despacho">Ubícanos</a>
-            <a href="nosotros.html">Sobre Nosotros</a>
             <button class="btn-login" id="header-login-btn">Iniciar Sesión</button>
         </div>
 
@@ -102,14 +97,6 @@
             <div class="modal-body">
                 <div class="modal-img-container" id="modal-img-wrapper">
                     <img id="modal-producto-img" src="" alt="Imagen de repuesto">
-                    <div id="modal-producto-no-img" class="modal-sin-imagen hidden">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                        </svg>
-                        <span>Fotografía técnica no disponible</span>
-                    </div>
                 </div>
                 <div class="modal-info">
                     <span id="modal-producto-categoria" class="tag-categoria">Categoría</span>
@@ -133,7 +120,6 @@
         </div>
     </div>
 
-    <!-- Pie de Página Institucional -->
     <footer>
         <div class="footer-container">
             <div class="footer-col footer-about">
@@ -169,7 +155,7 @@
         </div>
     </footer>
 
-    <!-- Modal de Inicio de Sesión (Validador Simple) -->
+    <!-- Inicio de Sesión -->
     <div id="login-modal" class="modal">
         <div class="modal-content modal-login-content">
             <button class="close-modal" id="close-login-modal-btn" aria-label="Cerrar modal">&times;</button>
@@ -178,21 +164,38 @@
 
             <form id="login-form-modal">
                 <div class="login-form-group">
-                    <label for="modal-usuario">Usuario</label>
-                    <input type="text" id="modal-usuario" placeholder="Ej: admin" required autocomplete="username">
+                    <label for="modal-usuario">Usuario o correo</label>
+                    <input type="text" id="modal-usuario" placeholder="Ej: admin o correo@ejemplo.com" required autocomplete="username">
                 </div>
                 <div class="login-form-group">
-                    <label for="modal-password">Contraseña</label>
-                    <input type="password" id="modal-password" placeholder="Ej: 12345678" required autocomplete="current-password">
+                    <label for="modal-contrasena">Contraseña</label>
+                    <input type="password" id="modal-contrasena" placeholder="Ej: 12345678" required autocomplete="current-password">
                 </div>
                 <button type="submit" class="login-btn-submit">Validar</button>
             </form>
 
+            <button type="button" class="login-register-toggle" id="mostrar-registro-modal">Crear cuenta nueva</button>
+            <form id="registro-form-modal" class="hidden">
+                <div class="login-form-group">
+                    <label for="registro-nombre">Nombre</label>
+                    <input type="text" id="registro-nombre" required autocomplete="name">
+                </div>
+                <div class="login-form-group">
+                    <label for="registro-correo">Correo</label>
+                    <input type="email" id="registro-correo" required autocomplete="email">
+                </div>
+                <div class="login-form-group">
+                    <label for="registro-contrasena">Contraseña</label>
+                    <input type="password" id="registro-contrasena" required autocomplete="new-password">
+                </div>
+                <button type="submit" class="login-btn-submit">Registrarme</button>
+                <button type="button" class="login-register-toggle" id="mostrar-acceso-modal">Ya tengo cuenta</button>
+            </form>
             <div id="modal-login-mensaje" class="login-mensaje"></div>
         </div>
     </div>
 
-    <!-- JS Modular (ES6 Modules) -->
+    
     <script type="module" src="js/app.js"></script>
 </body>
 

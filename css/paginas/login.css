@@ -1,0 +1,86 @@
+/* =============================================
+   ACCESO — Página login.html
+   El formulario compartido con el modal vive en modal.css
+   ============================================= */
+
+.login-page {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f8fafc;
+}
+
+.login-card {
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 380px;
+    padding: 28px 24px;
+    box-sizing: border-box;
+}
+
+.panel-sesion {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.panel-sesion h2 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    color: #1f2937;
+}
+
+.panel-sesion p {
+    color: #4b5563;
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+}
+
+.panel-sesion-acciones {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-login-secundario {
+    display: inline-block;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    color: #374151;
+    text-decoration: none;
+    background-color: #f1f5f9;
+}
+
+.btn-cerrar-sesion {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid #dc2626;
+    border-radius: 4px;
+    color: #ffffff;
+    background-color: #dc2626;
+    cursor: pointer;
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: #b91c1c;
+}
+
+.login-volver-link {
+    display: block;
+    margin-top: 18px;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.login-volver-link:hover {
+    text-decoration: underline;
+}

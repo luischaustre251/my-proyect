@@ -1,8 +1,7 @@
 /* =============================================
-   ABOUT PAGE — Página nosotros.html
+   NOSOTROS — Página nosotros.html
    ============================================= */
 
-/* Tags de Sección */
 .section-tag {
     display: inline-block;
     color: var(--primary);
@@ -20,7 +19,6 @@
     font-size: 1.05rem;
 }
 
-/* Banner Hero */
 .about-hero {
     background-color: var(--dark);
     color: var(--white);
@@ -28,7 +26,7 @@
     text-align: center;
     position: relative;
     overflow: hidden;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.8)), url('../images/almacen/almacen1.jpeg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.8)), url('../../images/almacen/almacen1.jpeg');
     background-size: cover;
     background-position: center;
     margin-bottom: 60px;
@@ -55,7 +53,6 @@
     line-height: 1.6;
 }
 
-/* Sección Quiénes Somos */
 .quienes-somos {
     margin-bottom: 80px;
 }
@@ -89,7 +86,6 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Sección Misión y Visión */
 .mision-vision {
     background-color: var(--white);
     padding: 80px 0;

@@ -2,25 +2,53 @@
 export const USUARIO_CORRECTO = "admin";
 export const CONTRASENA_CORRECTA = "12345678";
 const CLAVE_SESION = "usuarioLogueado";
+const CLAVE_USUARIOS = "usuariosRegistrados";
+
+function obtenerUsuarios() {
+    const usuarios = localStorage.getItem(CLAVE_USUARIOS);
+    return usuarios ? JSON.parse(usuarios) : [];
+}
 
 export function validarUsuario(usuario, contrasena) {
     if (!usuario || !contrasena) return false;
-    return usuario.trim() === USUARIO_CORRECTO && contrasena.trim() === CONTRASENA_CORRECTA;
+    const nombreUsuario = usuario.trim();
+
+    if (nombreUsuario === USUARIO_CORRECTO && contrasena.trim() === CONTRASENA_CORRECTA) {
+        return true;
+    }
+
+    return obtenerUsuarios().some(
+        cuenta => cuenta.correo === nombreUsuario.toLowerCase() && cuenta.contrasena === contrasena.trim()
+    );
 }
 
-// Permite probar la validación desde la consola.
+export function registrarUsuario(nombre, correo, contrasena) {
+    const usuarios = obtenerUsuarios();
+    const correoNormalizado = correo.trim().toLowerCase();
+
+    if (usuarios.some(cuenta => cuenta.correo === correoNormalizado)) return false;
+
+    usuarios.push({ nombre: nombre.trim(), correo: correoNormalizado, contrasena: contrasena.trim() });
+    localStorage.setItem(CLAVE_USUARIOS, JSON.stringify(usuarios));
+    return true;
+}
+
 if (typeof window !== "undefined") {
     window.validarUsuario = validarUsuario;
     window.USUARIO_CORRECTO = USUARIO_CORRECTO;
     window.CONTRASENA_CORRECTA = CONTRASENA_CORRECTA;
 }
 
-export function estaAutenticado() {
-    return sessionStorage.getItem(CLAVE_SESION) === USUARIO_CORRECTO;
+export function usuarioActual() {
+    return sessionStorage.getItem(CLAVE_SESION);
 }
 
-export function iniciarSesion() {
-    sessionStorage.setItem(CLAVE_SESION, USUARIO_CORRECTO);
+export function estaAutenticado() {
+    return Boolean(usuarioActual());
+}
+
+export function iniciarSesion(usuario) {
+    sessionStorage.setItem(CLAVE_SESION, usuario.trim());
 }
 
 export function cerrarSesion() {
@@ -34,14 +62,13 @@ function mostrarMensaje(elemento, texto, tipo) {
 }
 
 export function actualizarInterfazAutenticacion() {
-    const activo = estaAutenticado();
+    const usuario = usuarioActual();
+    const activo = Boolean(usuario);
+    const textoAcceso = activo ? `Salir (${usuario})` : "Iniciar Sesión";
+    const textoNavegacion = activo ? `Sesión (${usuario})` : "Acceso";
 
-    document.querySelectorAll(".btn-login, #header-login-btn").forEach((boton) => {
-        boton.textContent = activo ? `Salir (${USUARIO_CORRECTO})` : "Iniciar Sesión";
-    });
-
-    document.querySelectorAll(".nav-login-link").forEach((enlace) => {
-        enlace.textContent = activo ? `Sesión (${USUARIO_CORRECTO})` : "Acceso";
+    document.querySelectorAll(".btn-login, #header-login-btn, .nav-login-link").forEach((elemento) => {
+        elemento.textContent = elemento.matches(".nav-login-link") ? textoNavegacion : textoAcceso;
     });
 
     const tarjetaFormulario = document.getElementById("login-card-form");
@@ -49,6 +76,8 @@ export function actualizarInterfazAutenticacion() {
     if (tarjetaFormulario && panelSesion) {
         tarjetaFormulario.style.display = activo ? "none" : "block";
         panelSesion.style.display = activo ? "block" : "none";
+        const usuarioPanel = document.getElementById("usuario-autenticado");
+        if (usuarioPanel) usuarioPanel.textContent = usuario || "";
     }
 }
 
@@ -62,8 +91,8 @@ function manejarEnvioAcceso({ formulario, idUsuario, idContrasena, idMensaje, al
         const mensaje = document.getElementById(idMensaje);
 
         if (validarUsuario(entradaUsuario.value, entradaContrasena.value)) {
-            iniciarSesion();
-            mostrarMensaje(mensaje, `Acceso concedido. Bienvenido, ${USUARIO_CORRECTO}.`, "exito");
+            iniciarSesion(entradaUsuario.value);
+            mostrarMensaje(mensaje, `Acceso concedido. Bienvenido, ${entradaUsuario.value.trim()}.`, "exito");
             actualizarInterfazAutenticacion();
             if (alIngresar) alIngresar();
         } else {
@@ -74,28 +103,79 @@ function manejarEnvioAcceso({ formulario, idUsuario, idContrasena, idMensaje, al
     });
 }
 
+function configurarRegistro(modal) {
+    const formulario = document.getElementById("registro-form-modal");
+    const formularioAcceso = document.getElementById("login-form-modal") ||
+        document.getElementById("login-form-page");
+    const mensaje = document.getElementById("modal-login-mensaje") ||
+        document.getElementById("page-login-mensaje");
+    const botonRegistro = document.getElementById("mostrar-registro-modal");
+    const botonAcceso = document.getElementById("mostrar-acceso-modal");
+
+    const cambiarFormulario = (mostrarRegistro) => {
+        formularioAcceso?.classList.toggle("hidden", mostrarRegistro);
+        formulario?.classList.toggle("hidden", !mostrarRegistro);
+        botonRegistro?.classList.toggle("hidden", mostrarRegistro);
+        if (mensaje) {
+            mensaje.textContent = "";
+            mensaje.className = "login-mensaje";
+        }
+    };
+
+    botonRegistro?.addEventListener("click", () => cambiarFormulario(true));
+    botonAcceso?.addEventListener("click", () => cambiarFormulario(false));
+
+    if (!formulario) return;
+
+    formulario.addEventListener("submit", (evento) => {
+        evento.preventDefault();
+        const nombre = document.getElementById("registro-nombre").value.trim();
+        const correo = document.getElementById("registro-correo").value.trim();
+        const contrasena = document.getElementById("registro-contrasena").value.trim();
+
+        try {
+            if (!registrarUsuario(nombre, correo, contrasena)) {
+                mostrarMensaje(mensaje, "Ya existe una cuenta con ese correo.", "error");
+                return;
+            }
+        } catch {
+            mostrarMensaje(mensaje, "No se pudo guardar la cuenta en este navegador.", "error");
+            return;
+        }
+
+        iniciarSesion(correo);
+        cambiarFormulario(false);
+        mostrarMensaje(mensaje, "Cuenta creada. Ya iniciaste sesión.", "exito");
+        actualizarInterfazAutenticacion();
+        if (modal) setTimeout(() => modal.classList.remove("active"), 600);
+    });
+}
+
 export function inicializarAutenticacion() {
     actualizarInterfazAutenticacion();
 
     const modal = document.getElementById("login-modal");
     const botonCerrar = document.getElementById("close-login-modal-btn");
 
-    manejarEnvioAcceso({
-        formulario: document.getElementById("login-form-page"),
-        idUsuario: "page-usuario",
-        idContrasena: "page-password",
-        idMensaje: "page-login-mensaje"
-    });
-
-    manejarEnvioAcceso({
-        formulario: document.getElementById("login-form-modal"),
-        idUsuario: "modal-usuario",
-        idContrasena: "modal-password",
-        idMensaje: "modal-login-mensaje",
-        alIngresar: () => {
-            if (modal) setTimeout(() => modal.classList.remove("active"), 600);
+    [
+        {
+            formulario: document.getElementById("login-form-page"),
+            idUsuario: "page-usuario",
+            idContrasena: "page-contrasena",
+            idMensaje: "page-login-mensaje"
+        },
+        {
+            formulario: document.getElementById("login-form-modal"),
+            idUsuario: "modal-usuario",
+            idContrasena: "modal-contrasena",
+            idMensaje: "modal-login-mensaje",
+            alIngresar: () => {
+                if (modal) setTimeout(() => modal.classList.remove("active"), 600);
+            }
         }
-    });
+    ].forEach(manejarEnvioAcceso);
+
+    configurarRegistro(modal);
 
     const botonCerrarPagina = document.getElementById("btn-cerrar-sesion-page");
     if (botonCerrarPagina) {
@@ -114,7 +194,7 @@ export function inicializarAutenticacion() {
         boton.addEventListener("click", (evento) => {
             if (estaAutenticado()) {
                 evento.preventDefault();
-                if (confirm(`¿Deseas cerrar la sesión de ${USUARIO_CORRECTO}?`)) {
+                if (confirm(`¿Deseas cerrar la sesión de ${usuarioActual()}?`)) {
                     cerrarSesion();
                     actualizarInterfazAutenticacion();
                     window.location.reload();

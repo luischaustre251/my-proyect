@@ -6,13 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casique C.A | Mayor de Repuestos para Autos y Camiones</title>
 
-    <!-- CSS Modular -->
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/nosotros.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/paginas/nosotros.css">
     <link rel="stylesheet" href="css/modal.css">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 
@@ -29,15 +26,13 @@
             <ul>
                 <li><a href="index.html#inicio">Inicio</a></li>
                 <li><a href="index.html#categorias">Categorías</a></li>
-                <li><a href="catalogo.html" class="highlight-link">Catálogo</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="nosotros.html" class="active-nav">Sobre Nosotros</a></li>
                 <li><a href="login.html" class="nav-login-link">Acceso</a></li>
             </ul>
         </nav>
 
         <div class="header-tools">
-            <a href="index.html#despacho">Ubícanos</a>
-            <a href="nosotros.html" class="active-nav">Sobre Nosotros</a>
             <button class="btn-login" id="header-login-btn">Iniciar Sesión</button>
         </div>
 
@@ -49,7 +44,6 @@
     </header>
 
     <main class="nosotros-page">
-        <!-- Banner Hero Premium -->
         <section class="about-hero">
             <div class="about-hero-content">
                 <h1>Sobre Nosotros</h1>
@@ -57,7 +51,6 @@
             </div>
         </section>
 
-        <!-- Quiénes Somos -->
         <section class="quienes-somos container">
             <div class="quienes-somos-grid">
                 <div class="quienes-somos-content">
@@ -82,10 +75,8 @@
             </div>
         </section>
 
-        <!-- Misión y Visión Alternada -->
         <section class="mision-vision">
             <div class="container">
-                <!-- Misión (Texto Izq, Imagen Der) -->
                 <div class="mision-vision-row">
                     <div class="mision-vision-content">
                         <div class="mv-icon">
@@ -108,7 +99,6 @@
                     </div>
                 </div>
 
-                <!-- Visión (Imagen Izq, Texto Der) -->
                 <div class="mision-vision-row reverse">
                     <div class="mision-vision-content">
                         <div class="mv-icon">
@@ -134,7 +124,6 @@
 
     </main>
 
-    <!-- Pie de Página Institucional -->
     <footer>
         <div class="footer-container">
             <div class="footer-col footer-about">
@@ -179,17 +168,34 @@
 
             <form id="login-form-modal">
                 <div class="login-form-group">
-                    <label for="modal-usuario">Usuario</label>
-                    <input type="text" id="modal-usuario" placeholder="Ej: admin" required autocomplete="username">
+                    <label for="modal-usuario">Usuario o correo</label>
+                    <input type="text" id="modal-usuario" placeholder="Ej: admin o correo@ejemplo.com" required autocomplete="username">
                 </div>
                 <div class="login-form-group">
-                    <label for="modal-password">Contraseña</label>
-                    <input type="password" id="modal-password" placeholder="Ej: 12345678" required
+                    <label for="modal-contrasena">Contraseña</label>
+                    <input type="password" id="modal-contrasena" placeholder="Ej: 12345678" required
                         autocomplete="current-password">
                 </div>
                 <button type="submit" class="login-btn-submit">Validar</button>
             </form>
 
+            <button type="button" class="login-register-toggle" id="mostrar-registro-modal">Crear cuenta nueva</button>
+            <form id="registro-form-modal" class="hidden">
+                <div class="login-form-group">
+                    <label for="registro-nombre">Nombre</label>
+                    <input type="text" id="registro-nombre" required autocomplete="name">
+                </div>
+                <div class="login-form-group">
+                    <label for="registro-correo">Correo</label>
+                    <input type="email" id="registro-correo" required autocomplete="email">
+                </div>
+                <div class="login-form-group">
+                    <label for="registro-contrasena">Contraseña</label>
+                    <input type="password" id="registro-contrasena" required autocomplete="new-password">
+                </div>
+                <button type="submit" class="login-btn-submit">Registrarme</button>
+                <button type="button" class="login-register-toggle" id="mostrar-acceso-modal">Ya tengo cuenta</button>
+            </form>
             <div id="modal-login-mensaje" class="login-mensaje"></div>
         </div>
     </div>

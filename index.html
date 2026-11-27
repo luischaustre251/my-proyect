@@ -6,18 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casique C.A | Mayor de Repuestos para Autos y Camiones</title>
 
-    <!-- CSS Modular -->
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/banner.css">
-    <link rel="stylesheet" href="css/categorias.css">
-    <link rel="stylesheet" href="css/nosotros.css">
-    <link rel="stylesheet" href="css/despacho.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/paginas/inicio.css">
     <link rel="stylesheet" href="css/modal.css">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/nosotros-inicio.css">
 </head>
 
 <body>
@@ -31,15 +24,13 @@
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#categorias">Categorías</a></li>
-                <li><a href="catalogo.html" class="highlight-link">Catálogo</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="nosotros.html">Sobre Nosotros</a></li>
                 <li><a href="login.html" class="nav-login-link">Acceso</a></li>
             </ul>
         </nav>
 
         <div class="header-tools">
-            <a href="#despacho">Ubícanos</a>
-            <a href="#sobre-nosotros">Sobre Nosotros</a>
             <button class="btn-login" id="header-login-btn">Iniciar Sesión</button>
         </div>
 
@@ -64,8 +55,10 @@
                 <h1 id="slider-title">Servicios especializados<br>Marcas reconocidas.</h1>
                 <p id="slider-desc">Somos una organización líder en la distribución al por mayor de repuestos
                     automotrices en toda Venezuela.</p>
-                <a href="#productos" class="btn">DESTACADOS</a>
-                <a href="catalogo.html" class="btn btn-outline">CATÁLOGO COMPLETO</a>
+                <div class="banner-actions">
+                    <a href="#despacho" class="btn">UBÍCANOS</a>
+                    <a href="catalogo.html" class="btn btn-outline">CATÁLOGO COMPLETO</a>
+                </div>
             </div>
 
             <div class="slider-controls">
@@ -90,8 +83,18 @@
                     <h3>Bombas de Aceite</h3>
                 </article>
                 <article class="categoria-item" data-filter="rodamientos">
-                    <div class="categoria-icon-img">
-                        <img src="images/rodamiento.PNG" alt="Rodamiento automotriz Casique C.A.">
+                    <div class="categoria-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <circle cx="12" cy="6" r="1"></circle>
+                            <circle cx="17.2" cy="9" r="1"></circle>
+                            <circle cx="17.2" cy="15" r="1"></circle>
+                            <circle cx="12" cy="18" r="1"></circle>
+                            <circle cx="6.8" cy="15" r="1"></circle>
+                            <circle cx="6.8" cy="9" r="1"></circle>
+                        </svg>
                     </div>
                     <h3>Rodamientos</h3>
                 </article>
@@ -199,9 +202,6 @@
 
     </main>
 
-    <!-- El Modal de Detalles del Producto ha sido trasladado a catalogo.html -->
-
-    <!-- Pie de Página Institucional -->
     <footer>
         <div class="footer-container">
             <div class="footer-col footer-about">
@@ -237,7 +237,7 @@
         </div>
     </footer>
 
-    <!-- Modal de Inicio de Sesión (Validador Simple) -->
+    <!-- inicio de sesion, esto permanece oculto hasta que se abra -->
     <div id="login-modal" class="modal">
         <div class="modal-content modal-login-content">
             <button class="close-modal" id="close-login-modal-btn" aria-label="Cerrar modal">&times;</button>
@@ -246,16 +246,33 @@
 
             <form id="login-form-modal">
                 <div class="login-form-group">
-                    <label for="modal-usuario">Usuario</label>
-                    <input type="text" id="modal-usuario" placeholder="Ej: admin" required autocomplete="username">
+                    <label for="modal-usuario">Usuario o correo</label>
+                    <input type="text" id="modal-usuario" placeholder="Ej: admin o correo@ejemplo.com" required autocomplete="username">
                 </div>
                 <div class="login-form-group">
-                    <label for="modal-password">Contraseña</label>
-                    <input type="password" id="modal-password" placeholder="Ej: 12345678" required autocomplete="current-password">
+                    <label for="modal-contrasena">Contraseña</label>
+                    <input type="password" id="modal-contrasena" placeholder="Ej: 12345678" required autocomplete="current-password">
                 </div>
                 <button type="submit" class="login-btn-submit">Validar</button>
             </form>
 
+            <button type="button" class="login-register-toggle" id="mostrar-registro-modal">Crear cuenta nueva</button>
+            <form id="registro-form-modal" class="hidden">
+                <div class="login-form-group">
+                    <label for="registro-nombre">Nombre</label>
+                    <input type="text" id="registro-nombre" required autocomplete="name">
+                </div>
+                <div class="login-form-group">
+                    <label for="registro-correo">Correo</label>
+                    <input type="email" id="registro-correo" required autocomplete="email">
+                </div>
+                <div class="login-form-group">
+                    <label for="registro-contrasena">Contraseña</label>
+                    <input type="password" id="registro-contrasena" required autocomplete="new-password">
+                </div>
+                <button type="submit" class="login-btn-submit">Registrarme</button>
+                <button type="button" class="login-register-toggle" id="mostrar-acceso-modal">Ya tengo cuenta</button>
+            </form>
             <div id="modal-login-mensaje" class="login-mensaje"></div>
         </div>
     </div>
